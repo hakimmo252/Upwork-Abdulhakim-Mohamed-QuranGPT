@@ -47,5 +47,3 @@ def create_index(file_path: str) -> None:
     )
 
     vectordb.persist()
-
-# create_index('data/input/sample.pdf')
