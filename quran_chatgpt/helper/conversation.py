@@ -2,7 +2,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
+# from langchain.memory import ConversationBufferMemory
 
 from config import config
 
@@ -19,17 +19,17 @@ def create_conversation() -> ConversationalRetrievalChain:
         embedding_function=embeddings
     )
 
-    memory = ConversationBufferMemory(
-        memory_key='chat_history',
-        return_messages=False
-    )
+    # memory = ConversationBufferMemory(
+    #     memory_key='chat_history',
+    #     return_messages=False
+    # )
 
     qa = ConversationalRetrievalChain.from_llm(
         llm=ChatOpenAI(),
         chain_type='stuff',
         retriever=db.as_retriever(),
-        memory=memory,
-        get_chat_history=lambda h: h,
+        # memory=memory,
+        # get_chat_history=lambda h: h,
         verbose=True
     )
 
