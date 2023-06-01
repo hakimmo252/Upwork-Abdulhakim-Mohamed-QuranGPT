@@ -13,16 +13,16 @@ def home():
 
 @app.route('/twilio', methods=['POST'])
 def twilio():
-    print(request.form.to_dict())
     query = request.form['Body']
     sender_id = request.form['From']
     # TODO
     # get the user
     # if not create
     # create chat_history from the previous conversations
+
     res = qa(
         {
-        'question': query,
+        'question': f'If outside of the given book please refer to the Quran in your answe. {query}',
         'chat_history': {}
         }
     )
@@ -30,3 +30,18 @@ def twilio():
     send_message(sender_id, res['answer'])
 
     return 'OK', 200
+
+@app.route('/api/qa', methods=['POST'])
+def api_qa():
+
+    body = request.get_json()
+    question = body['query']
+
+    res = qa(
+        {
+        'question': question,
+        'chat_history': {}
+        }
+    )
+
+    return res, 200
